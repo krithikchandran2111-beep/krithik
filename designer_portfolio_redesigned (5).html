@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krithik Chandran | Creative Portfolio</title>
+    <meta name="description" content="Creative Editor & Designer | Video Editing | Motion Graphics | Graphic Design">
+    <meta name="keywords" content="Video Editor, Graphic Designer, Motion Graphics, Kerala Designer">
+    <meta name="author" content="Krithik Chandran">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ══════════════════════════════
+           LIGHT THEME (PRIMARY / DEFAULT)
+        ══════════════════════════════ */
+        :root  {
+            --bg:            #2B2726;
+            --surface:       #383330;
+            --surface2:      #3f3a37;
+            --bg-dark:       #151313;
+            --panel:         #5A514B;
+
+            --text:          #F2E8DC;
+            --muted:         rgba(191,175,159,0.70);
+            --border:        rgba(107,98,92,0.35);
+            --border-bright: rgba(107,98,92,0.65);
+
+            --accent:        #DDC2A7;
+            --accent2:       #CBAF98;
+            --accent-hover:  #BC9B80;
+            --accent-glow:   rgba(221,194,167,0.15);
+
+            --nav-bg:        rgba(43,39,38,0.88);
+            --hero-gradient: linear-gradient(110deg,#151313 0%,#2B2726 45%,#383330 100%);
+            --shadow:        0 4px 24px rgba(0,0,0,0.30);
+            --shadow-lg:     0 16px 48px rgba(0,0,0,0.50);
+          --font-display: 'Bebas Neue', cursive;
+            --font-body:    'DM Sans', sans-serif;
+            --font-mono:    'Space Mono', monospace;
+        }
+
+        /* ══════════════════════════════
+           DARK THEME (SECONDARY)
+        ══════════════════════════════ */
+        .dark {
+            --bg:            #F5EFE6;   /* warm off-white — primary bg        */
+            --surface:       #EDE4D8;   /* soft warm linen — cards/sections   */
+            --surface2:      #E4D8C8;   /* slightly deeper warm card          */
+            --bg-dark:       #DDD0BE;   /* muted sand — alt sections          */
+            --panel:         #C8B89A;   /* warm tan — panels                  */
+
+            --text:          #1C1714;   /* near-black warm — headings         */
+            --muted:         rgba(80,65,55,0.65); /* warm brown muted text    */
+            --border:        rgba(139,120,100,0.25);
+            --border-bright: rgba(139,120,100,0.45);
+
+            --accent:        #8B6243;   /* warm espresso — CTA / primary accent */
+            --accent2:       #A0784E;   /* medium sienna — secondary accent   */
+            --accent-hover:  #6B4830;   /* deep walnut — hover                */
+            --accent-glow:   rgba(139,98,67,0.12);
+
+            --nav-bg:        rgba(245,239,230,80);
+            --hero-gradient: linear-gradient(110deg,#EDE4D8 0%,#F5EFE6 50%,#E8DDD0 100%);
+            --shadow:        0 4px 24px rgba(80,60,40,0.10);
+            --shadow-lg:     0 16px 48px rgba(80,60,40,0.18);
+
+        }
+
+		
+		
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        /* ── NOISE GRAIN OVERLAY ── */
+        body::after {
+            content: '';
+            position: fixed; inset: 0;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.045;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* ── SPLASH ── */
+        #logo-splash {
+            position: fixed; inset: 0;
+            background: var(--surface2);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+            animation: splashOut 0.8s ease 2.2s forwards;
+        }
+        #logo-splash img {
+            max-width: 360px; width: 70%;
+            animation: splashIn 1.8s cubic-bezier(0.22,1,0.36,1);
+        }
+        @keyframes splashIn {
+            0% { opacity:0; transform: scale(0.7) rotate(-4deg); }
+            60% { opacity:1; transform: scale(1.04) rotate(1deg); }
+            100% { opacity:1; transform: scale(1) rotate(0); }
+        }
+        @keyframes splashOut {
+            to { opacity:0; pointer-events:none; }
+        }
+
+        /* ── NAV ── */
+        /* Floating "round rectangle" pill nav. It's transparent over the opening
+           (hero) screen so the banner image fills the very top of the page on
+           every screen size — the pill background only fades in once the user
+           scrolls past the hero (see .nav-scrolled, toggled by JS). */
+        nav {
+            width: 900px;
+            max-width: 94%;
+            position: fixed;
+            top: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 14px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 300;
+            background: transparent;
+            backdrop-filter: none;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            box-shadow: none;
+            transition: background 0.4s ease, border-color 0.4s ease,
+                        box-shadow 0.4s ease, backdrop-filter 0.4s ease,
+                        top 0.3s ease, width 0.3s ease;
+        }
+        nav.nav-scrolled {
+            background: var(--nav-bg);
+            backdrop-filter: blur(24px);
+            border-color: var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        /* Tablets / small laptops: shrink the pill proportionally */
+        @media (max-width: 900px) {
+            nav { width: 94%; padding: 12px 22px; }
+        }
+
+        /* Phones (landscape & small tablets) */
+        @media (max-width: 600px) {
+            nav {
+                width: 96%;
+                padding: 10px 16px;
+                top: 10px;
+                border-radius: 40px;
+            }
+        }
+
+        /* Small phones (portrait) */
+        @media (max-width: 380px) {
+            nav {
+                width: 100%;
+                top: 0;
+                left: 0;
+                transform: none;
+                border-radius: 0 0 24px 24px;
+                padding: 10px 14px;
+            }
+        }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+        }
+
+
+        .logo-text {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .logo-text span { color: var(--accent); }
+        .logo-text:hover { color: var(--accent); }
+
+        .nav-links { display: flex; align-items: center; gap: 6px; }
+        .nav-links a {
+            color: var(--muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-family: var(--font-mono);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 7px 14px;
+            border-radius: 4px;
+            transition: all 0.25s;
+        }
+        .nav-links a:hover {
+            color: var(--text);
+            background: var(--border);
+        }
+
+        /* ── THEME TOGGLE ── */
+        .theme-toggle {
+            display: flex; align-items: center; gap: 0;
+            background: var(--surface);
+            border: 1px solid var(--border-bright);
+            border-radius: 50px;
+            padding: 3px;
+            cursor: pointer;
+            transition: background 0.4s, border-color 0.4s;
+            flex-shrink: 0;
+        }
+        .theme-btn {
+            display: flex; align-items: center; justify-content: center;
+            gap: 5px;
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: none; cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--muted);
+            background: transparent;
+        }
+        .theme-btn.active {
+            background: var(--accent);
+            color: var(--bg);
+            box-shadow: var(--shadow);
+        }
+        .theme-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+        .hamburger { display: none; font-size: 26px; cursor: pointer; color: var(--text); margin-left: 8px; }
+
+        @media (max-width: 768px) {
+            nav { flex-direction: row; justify-content: space-between; }
+            .hamburger { display: block; }
+            .nav-links {
+                position: absolute; top: calc(100% + 10px); left: 0; width: 100%;
+                background: var(--bg);
+                flex-direction: column; align-items: center;
+                display: none; padding: 20px 0;
+                border: 1px solid var(--border);
+                border-radius: 20px;
+                box-shadow: var(--shadow-lg);
+                gap: 4px;
+            }
+            .nav-links.active { display: flex; }
+            .nav-links a { width: 100%; text-align: center; padding: 12px 20px; }
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100svh;
+            display: flex; flex-direction: column;
+            align-items: flex-start; justify-content: flex-end;
+            padding: 0 6% 80px;
+            position: relative;
+            overflow: hidden;
+            background: var(--hero-gradient);
+        }
+
+        /* YouTube video background */
+        .hero-video-bg {
+            position: absolute; inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        /* Header banner image — acts as the hero's background.
+           Default (desktop / tablet, landscape "tab ratio"): wide banner image.
+           Swapped for a taller crop on vertical mobile screens below. */
+        .hero-img-bg {
+            position: absolute; inset: 0;
+            z-index: 2;
+            background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/1400/d9242c197699011.6aa7dff8b35f7.jpg');
+            background-size: cover;
+            background-position: left center;
+            background-repeat: no-repeat;
+            opacity: 1;
+            transition: opacity 1.4s ease, background-image 0.4s ease;
+        }
+        .hero-img-bg.hidden { opacity: 1; pointer-events: none; }
+
+        /* Vertical mobile screens get a taller, portrait-friendly banner image */
+        @media (max-width: 600px) and (orientation: portrait) {
+            .hero-img-bg {
+                background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/4ab7f6197699011.6aa7c7f62ec85.jpg');
+                background-position: center top;
+            }
+        }
+
+        .hero-video-bg iframe {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 100vw;
+            height: 56.25vw;
+            min-height: 100vh;
+            min-width: 177.78vh;
+            transform: translate(-50%, -50%);
+            border: 0;
+            pointer-events: none;
+        }
+
+        /* Dark overlay over video / image */
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(8,8,8,0.92) 0%,
+                rgba(8,8,8,0.45) 38%,
+                rgba(8,8,8,0.20) 100%
+            );
+            z-index: 3;
+        }
+        .hero::after { display: none; }
+
+        /* Hero Text Block — bottom left */
+        .hero-text-block {
+            position: absolute;
+            bottom: 80px;
+            right: 6%;
+            z-index: 4;
+            max-width: 580px;
+            text-align: right;
+        }
+        .hero-eyebrow {
+            font-family: var(--font-mono);
+            font-size: clamp(10px, 1.4vw, 13px);
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.55);
+            margin-bottom: 10px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.5s forwards;
+        }
+        .hero-heading {
+            font-family: var(--font-display);
+            font-size: clamp(3.8rem, 9vw, 9rem);
+            line-height: 0.92;
+            letter-spacing: clamp(2px, 0.4vw, 6px);
+            color: #fff;
+            margin-bottom: 18px;
+            opacity: 0;
+            animation: fadeUp 1s cubic-bezier(0.22,1,0.36,1) 0.7s forwards;
+        }
+        .hero-tagline {
+            font-family: var(--font-mono);
+            font-size: clamp(10px, 1.2vw, 12px);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+            opacity: 0;
+            animation: fadeUp 1s ease 1s forwards;
+        }
+        .hero-tagline span {
+            color: var(--accent);
+            margin: 0 4px;
+        }
+
+        /* Hero CTA bottom-left */
+        .hero-cta-wrap {
+            position: absolute;
+            bottom: 32px;
+            left: 6%;
+            z-index: 4;
+            opacity: 0;
+            animation: fadeUp 1s ease 1.1s forwards;
+        }
+
+        /* Hero content always above overlays */
+        .hero-content {
+            position: relative; z-index: 4;
+            max-width: 860px;
+            width: 100%;
+        }
+
+        /* Eyebrow */
+        .hero-eyebrow {
+            font-family: var(--font-mono);
+            font-size: clamp(9px, 1.4vw, 12px);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 14px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.4s forwards;
+        }
+
+        /* Headline — fluid from mobile to desktop */
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 8vw, 8rem);
+            line-height: 0.95;
+            letter-spacing: clamp(2px, 0.5vw, 6px);
+            color: #fff;
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: fadeUp 1s cubic-bezier(0.22,1,0.36,1) 0.6s forwards;
+        }
+        .hero h1 em { font-style: normal; color: var(--accent); }
+
+        /* Subtitle */
+        .hero-sub {
+            font-size: clamp(0.82rem, 1.8vw, 1.15rem);
+            color: rgba(255,255,255,0.65);
+            font-weight: 300;
+            max-width: 480px;
+            line-height: 1.7;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.9s forwards;
+        }
+
+        /* CTA — kept intentionally small */
+        .hero-cta {
+            display: inline-flex; align-items: center; gap: 8px;
+            margin-top: clamp(16px, 2.5vw, 28px);
+            padding: 9px 20px;
+            background: var(--accent);
+            color: #151313;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 4px;
+            opacity: 0;
+            animation: fadeUp 1s ease 1.1s forwards;
+            transition: all 0.3s;
+            font-weight: 700;
+        }
+        .hero-cta:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(221,194,167,0.25);
+        }
+
+        /* Scroll hint */
+        .hero-scroll { display: none; }
+
+        @media (max-width: 768px) {
+            .hero-text-block {
+                right: 5%;
+                left: 5%;
+                text-align: right;
+                bottom: 90px;
+                max-width: 100%;
+            }
+            .hero-cta-wrap { left: 5%; bottom: 32px; }
+        }
+            .hero {
+                min-height: 100svh;
+                justify-content: flex-start;
+                padding: clamp(72px, 14vw, 100px) 5% 40px;
+            }
+            .hero-content { max-width: 100%; }
+            .hero-sub { max-width: 88%; font-size: clamp(0.82rem, 2.2vw, 1rem); }
+            .hero h1 { font-size: clamp(2.4rem, 9vw, 4.5rem); margin-bottom: 12px; }
+            .hero-eyebrow { font-size: clamp(9px, 2vw, 11px); margin-bottom: 10px; }
+            .hero-cta { font-size: 10px; padding: 8px 18px; margin-top: 14px; }
+            .hero-scroll { display: none; }
+        }
+
+        /* ── MOBILE (≤480px) ── */
+        @media (max-width: 480px) {
+            .hero {
+                padding-top: clamp(68px, 18vw, 90px);
+                padding-left: 5%; padding-right: 5%;
+            }
+            .hero h1 { font-size: clamp(2.2rem, 11vw, 3.2rem); letter-spacing: 2px; }
+            .hero-eyebrow { font-size: 9px; letter-spacing: 3px; }
+            .hero-sub { max-width: 100%; font-size: 0.82rem; line-height: 1.6; }
+            .hero-cta { font-size: 10px; padding: 8px 16px; }
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Bio slide-in */
+        .bio-wrapper {
+            padding: 0 6% 80px;
+            background: var(--bg);
+        }
+        .bio-box {
+            width: 100%;
+			max-width: 1920px;
+			margin: 0 auto;
+			box-sizing: boder border-box;
+            background: var(--surface);
+            border: 1px solid var(--border-bright);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 40px 48px;
+            opacity: 0;
+            transform: translateX(60px);
+            animation: slideRight 1s cubic-bezier(0.22,1,0.36,1) 1.6s forwards;
+            position: relative;
+            overflow: hidden;
+        }
+        .bio-box::before {
+            content: '';
+            position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(221,194,167,0.06), transparent);
+            transition: 0.7s;
+        }
+        .bio-box:hover::before { left: 100%; }
+        .bio-box:hover { border-color: var(--accent); box-shadow: 0 0 40px rgba(221,194,167,0.12); }
+        @keyframes slideRight {
+            to { opacity:1; transform: translateX(0); }
+        }
+        .bio-box p {
+            font-size: 1.05rem; line-height: 1.95;
+            color: var(--text);
+            letter-spacing: 0.2px;
+        }
+        /* ── BIO WORD ANIMATION ── */
+        .bio-word {
+            display: inline;
+            opacity: 0;
+            transform: translateY(5px);
+            animation: bioWordIn 0.3s ease forwards;
+        }
+        @keyframes bioWordIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .bio-wrapper { padding: 0 5% 60px; }
+            .bio-box { padding: 20px 20px; }
+        }
+
+        /* ── SECTION STYLES ── */
+        section.panel, .panel {
+            padding: 80px 6%;
+        }
+        .section-header {
+            display: flex; align-items: flex-end; justify-content: space-between;
+            margin-bottom: 50px;
+            flex-wrap: wrap; gap: 12px;
+        }
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            letter-spacing: 3px;
+            line-height: 1;
+        }
+        .section-link-btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-decoration: none;
+            border: 1px solid var(--border-bright);
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        .section-link-btn:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        /* ── WHAT I DO ── */
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+        @media (max-width: 1024px) { .profiles-grid { grid-template-columns: repeat(2,1fr); } }
+        @media (max-width: 600px) { .profiles-grid { grid-template-columns: 1fr; } }
+
+        .profile-card {
+            background: var(--surface);
+            padding: 44px 32px;
+            text-align: left;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s;
+            cursor: default;
+        }
+        .profile-card::after {
+            content: '';
+            position: absolute; bottom: 0; left: 0;
+            width: 0; height: 3px;
+            background: var(--accent);
+            transition: width 0.4s;
+        }
+        .profile-card:hover { background: var(--surface2); transform: translateY(-4px); }
+        .profile-card:hover::after { width: 100%; }
+        .profile-num {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            color: var(--accent);
+            opacity: 0.15;
+            line-height: 1;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+        .profile-icon-wrap {
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+            transition: transform 0.4s;
+        }
+        .profile-card:hover .profile-icon-wrap { transform: scale(1.15) rotate(-5deg); }
+        .profile-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+        .profile-card p { font-size: 0.9rem; line-height: 1.75; color: var(--muted); }
+
+        /* ── TOOLS ── */
+        .tools-bg { background: var(--surface); }
+        .software-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 2px;
+        }
+        .soft-card {
+            background: var(--bg);
+            padding: 28px 16px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+            position: relative; overflow: hidden;
+            cursor: default;
+        }
+        .soft-card::before {
+            content: '';
+            position: absolute; top:0; left:-100%; width:100%; height:100%;
+            background: linear-gradient(90deg, transparent, rgba(221,194,167,0.08), transparent);
+            transition: 0.6s;
+        }
+        .soft-card:hover { transform: translateY(-6px); border-color: var(--accent); box-shadow: 0 16px 48px rgba(221,194,167,0.2); }
+        .soft-card:hover::before { left: 100%; }
+        .soft-card img { width: 52px; height: 52px; object-fit: contain; margin-bottom: 10px; transition: transform 0.3s; }
+        .soft-card:hover img { transform: scale(1.15) rotate(5deg); }
+        .soft-card p { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; }
+        .soft-card:hover p { color: var(--accent); }
+
+        /* Clients */
+        .clients-bg { background: var(--bg); }
+        .clients-section { padding: 80px 6%; }
+        .clients-section .soft-card img { width: 72px; height: 72px; object-fit: contain; border-radius: 8px; }
+
+        /* Tools sub-label */
+        .tools-sub-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        /* AI tools icon fallback — text badge */
+        .soft-card .ai-badge {
+            width: 52px; height: 52px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 12px;
+            font-family: var(--font-display);
+            font-size: 1rem;
+            letter-spacing: 1px;
+            margin: 0 auto 10px;
+            color: #fff;
+        }
+        .ai-badge.chatgpt  { background: linear-gradient(135deg,#10a37f,#1a7f64); }
+        .ai-badge.claude   { background: linear-gradient(135deg,#c96442,#8b3a20); }
+        .ai-badge.seedance { background: linear-gradient(135deg,#6c3fff,#3b1fa8); }
+        .ai-badge.kling    { background: linear-gradient(135deg,#ff4fa3,#a0006c); }
+        .ai-badge.eleven   { background: linear-gradient(135deg,#f5a623,#c47a00); }
+
+        /* ── WORK GRID ── */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+        @media (max-width: 1024px) { .grid { grid-template-columns: repeat(2,1fr); } }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+
+        .work-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.4s;
+        }
+        .work-item::after {
+            content: 'VIEW';
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            letter-spacing: 8px;
+            color: #fff;
+            background: rgba(221,194,167,0);
+            opacity: 0;
+            transition: background 0.4s, opacity 0.4s;
+            z-index: 20;
+            pointer-events: none;
+        }
+        /* Click-catcher overlay for iframe cards — sits above iframe, below VIEW text */
+        .work-item .click-overlay {
+            position: absolute; inset: 0;
+            z-index: 9;
+            cursor: pointer;
+            background: transparent;
+        }
+        .work-item:hover { transform: scale(1.01); border-color: var(--accent); }
+        .work-item:hover::after {
+            background: rgba(188,155,128,0.60);
+            opacity: 1;
+        }
+        .work-item img { width: 100%; height: auto; display: block; }
+        .work-item .image-wrapper {
+            width: 100%; height: 280px;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--surface); overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+        .work-item .image-wrapper img {
+            max-width: 100%; max-height: 100%;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+            display: block;
+        }
+        .work-item:hover .image-wrapper img { transform: scale(1.07); }
+
+        .video-container {
+            position: relative; width: 100%; height: 0; padding-bottom: 56.25%; overflow: hidden;
+        }
+        .video-container iframe {
+            position: absolute; top:0; left:0; width:100%; height:100%; border:0; object-fit: cover;
+        }
+
+        /* ── MODAL ── */
+        #modal {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.92);
+            display: none; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.4s;
+            z-index: 9000; padding: 24px;
+        }
+        #modal.active { display: flex; opacity: 1; }
+        .modal-content {
+            max-width: 90%; max-height: 88vh;
+            border-radius: 6px; overflow: hidden;
+            animation: modalZoom 0.35s cubic-bezier(0.2,0.8,0.2,1);
+            border: 1px solid var(--border-bright);
+        }
+        @keyframes modalZoom {
+            from { transform: scale(0.88) translateY(30px); opacity:0; }
+            to { transform: scale(1) translateY(0); opacity:1; }
+        }
+        .modal-content iframe, .modal-content img {
+            width: 100%; height: auto; max-height: 88vh;
+            border-radius: 6px;
+        }
+
+        /* ── CONTACT QUESTIONNAIRE ── */
+        .contact-section {
+            padding: 100px 6%;
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border);
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .contact-label {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .contact-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+        .contact-heading {
+            font-family: var(--font-display);
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            letter-spacing: 3px;
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+        .contact-heading span { color: var(--accent); }
+        .contact-desc {
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 40px;
+            max-width: 420px;
+        }
+        .contact-info-items { display: flex; flex-direction: column; gap: 20px; }
+        .c-info-item {
+            display: flex; align-items: flex-start; gap: 14px;
+        }
+        .c-info-icon {
+            width: 42px; height: 42px; border-radius: 8px;
+            background: var(--surface2); border: 1px solid var(--border-bright);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; flex-shrink: 0;
+        }
+        .c-info-text p:first-child {
+            font-family: var(--font-mono);
+            font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--muted); margin-bottom: 3px;
+        }
+        .c-info-text p:last-child { font-size: 0.9rem; font-weight: 500; }
+        .contact-socials-row { display: flex; gap: 10px; margin-top: 32px; }
+        .c-soc {
+            width: 42px; height: 42px; border-radius: 6px;
+            border: 1px solid var(--border-bright);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--muted); transition: all 0.3s;
+        }
+        .c-soc:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-glow); transform: translateY(-3px); }
+        .c-soc svg { width: 18px; height: 18px; }
+
+        /* Form */
+        .contact-form-wrap { display: flex; flex-direction: column; gap: 14px; }
+        .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .fgroup { display: flex; flex-direction: column; gap: 6px; }
+        .fgroup label {
+            font-family: var(--font-mono);
+            font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--muted);
+        }
+        .fgroup input,
+        .fgroup textarea,
+        .fgroup select {
+            background: var(--bg);
+            border: 1px solid var(--border-bright);
+            border-radius: 6px;
+            padding: 12px 16px;
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color 0.25s, box-shadow 0.25s;
+            resize: none;
+            appearance: none;
+        }
+        .fgroup input:focus,
+        .fgroup textarea:focus,
+        .fgroup select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(221,194,167,0.12);
+        }
+        .fgroup select option { background: var(--surface2); }
+        .fgroup textarea { height: 130px; }
+        .wa-submit {
+            display: inline-flex; align-items: center; gap: 10px;
+            padding: 14px 28px; border-radius: 6px;
+            background: var(--accent); color: #151313;
+            font-family: var(--font-mono);
+            font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+            border: none; cursor: pointer; font-weight: 700;
+            transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+            align-self: flex-start; margin-top: 4px;
+        }
+        .wa-submit:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 36px rgba(221,194,167,0.30);
+        }
+        .wa-submit svg { width: 16px; height: 16px; }
+
+        @media (max-width: 900px) {
+            .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+            .contact-desc { max-width: 100%; }
+        }
+        @media (max-width: 480px) {
+            .form-row-2 { grid-template-columns: 1fr; }
+            .contact-section { padding: 72px 5%; }
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 48px 2% 40px;
+            border-top: 1px solid var(--border);
+            background: var(--bg-dark);
+            overflow: hidden;
+        }
+        .footer-name {
+            font-family: var(--font-display);
+            font-size: clamp(2.4rem, 13.5vw, 17vw);
+            letter-spacing: clamp(1px, 0.5vw, 8px);
+            line-height: 1.1;
+            margin-bottom: 28px;
+            color: var(--text);
+            opacity: 0.28;
+            white-space: nowrap;
+            width: 100%;
+            display: block;
+            text-align: center;
+            user-select: none;
+            padding: 0 2%;
+            transition: color 0.4s;
+        }
+        .footer-name span { color: var(--accent-hover); font-weight: 800; }   /* Krithik — darkest accent */
+        .footer-name .thin { font-weight: 400; letter-spacing: clamp(1px, 0.4vw, 6px); color: var(--muted); } /* Chandran — light-dark muted */
+        .social-icons {
+            display: flex; justify-content: center; gap: 16px; margin-bottom: 32px;
+        }
+        .social-icons a {
+            width: 48px; height: 48px;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--border-bright);
+            border-radius: 4px;
+            color: var(--muted);
+            transition: all 0.3s;
+        }
+        .social-icons a:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+            background: var(--accent-glow);
+            transform: translateY(-4px);
+        }
+        .social-icons a svg { width: 20px; height: 20px; }
+        footer p {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+        /* ── BG EFFECTS ── */
+        .bg-orbs { position: fixed; inset:0; pointer-events: none; z-index: -2; overflow: hidden; }
+        .orb {
+            position: absolute; border-radius: 50%;
+            filter: blur(130px); opacity: 0.18;
+            animation: floatOrb 20s ease-in-out infinite;
+        }
+        .orb.a { width: 600px; height: 600px; background: radial-gradient(circle, #DDC2A7, transparent); top: -100px; left: -150px; animation-delay: 0s; }
+        .orb.b { width: 400px; height: 400px; background: radial-gradient(circle, #BC9B80, transparent); bottom: 10%; right: -80px; animation-delay: 8s; }
+        .orb.c { width: 300px; height: 300px; background: radial-gradient(circle, #CBAF98, transparent); top: 55%; left: 40%; animation-delay: 14s; }
+        @keyframes floatOrb {
+            0%,100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-70px) translateX(50px); }
+        }
+
+        /* ── DIVIDER LINE ── */
+        .hr-line { width: 100%; height: 1px; background: var(--border); margin: 0; }
+
+        /* ── VIDEO LABEL ── */
+        .video-label {
+            padding: 12px 16px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            background: var(--surface);
+        }
+        .behance-video-card:hover .video-label { color: var(--accent); }
+
+        /* ── SUBSECTION HEADER ── */
+        .subsection-header {
+            display: flex; align-items: center; flex-wrap: wrap; gap: 16px;
+            margin: 60px 0 28px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+        .subsection-label {
+            font-family: var(--font-mono);
+            font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+            color: var(--accent);
+            background: var(--accent-glow);
+            border: 1px solid var(--accent);
+            padding: 4px 10px; border-radius: 3px;
+        }
+        .subsection-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.4rem, 3vw, 2rem);
+            letter-spacing: 3px;
+            flex: 1;
+        }
+
+        /* ── REVEAL ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            filter: blur(6px);
+            transition: opacity 1.1s ease, transform 1.1s ease, filter 1.1s ease;
+        }
+        .reveal.show { opacity:1; transform:none; filter:none; }
+
+        /* ── FLOATING ELEMENTS ── */
+        .floating-elements { position: fixed; inset:0; pointer-events:none; z-index:-1; }
+        .float { position: absolute; width: 36px; opacity: 0.08; animation: floatMove 14s ease-in-out infinite, rotateSlow 22s linear infinite; }
+        .f1 { top: 20%; left: 8%; }
+        .f2 { top: 65%; left: 18%; }
+        .f3 { top: 28%; right: 12%; }
+        .f4 { bottom: 22%; right: 22%; }
+        @keyframes floatMove { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-40px); } }
+        @keyframes rotateSlow { 0% { rotate: 0deg; } 100% { rotate: 360deg; } }
+
+        /* mobile tweaks */
+        @media (max-width: 768px) {
+            .panel, section.panel, .clients-section { padding: 60px 5%; }
+            .profiles-grid { grid-template-columns: 1fr 1fr; }
+            .section-header { flex-direction: column; align-items: flex-start; }
+        }
+        @media (max-width: 480px) {
+            .profiles-grid { grid-template-columns: 1fr; }
+        }
+        /* ── FILMSTRIP PARALLAX ── */
+        .filmstrip-track { transition: transform 0.08s linear; }
+        #track1  { --parallax-dir: 1;  }   /* tilts right on scroll down  */
+        #track2  { --parallax-dir: -1; }   /* tilts left  on scroll down  */
+        #track3  { --parallax-dir: 1;  }
+        .filmstrip-wrapper {
+            perspective: 1200px;
+        }
+
+        /* ── FILMSTRIP (Apple TV style) ── */
+        .filmstrip-wrapper {
+            margin-top: 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow: hidden;
+        }
+        .filmstrip-track {
+            width: 100%;
+            overflow: hidden;
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+        }
+        .filmstrip-inner {
+            display: flex;
+            gap: 5px;
+            width: max-content;
+            will-change: transform;
+        }
+
+        @keyframes scrollLeft {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @keyframes scrollRight {
+            0%   { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+        .scroll-left  { animation: scrollLeft  48s linear infinite; }
+        .scroll-right { animation: scrollRight 44s linear infinite; }
+        .scroll-left2 { animation: scrollLeft  54s linear infinite; }
+
+        /* Filmstrip paused by default — JS activates when in view */
+        .filmstrip-inner { animation-play-state: paused; }
+        .filmstrip-inner.playing { animation-play-state: running; }
+        .filmstrip-track:hover .filmstrip-inner { animation-play-state: paused; }
+
+        /* Bigger cards */
+        .film-card {
+            position: relative;
+            flex-shrink: 0;
+            width: clamp(280px, 30vw, 420px);
+            aspect-ratio: 1 / 1;
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), box-shadow 0.35s;
+        }
+        .film-card:hover {
+            transform: scale(1.06);
+            box-shadow: 0 24px 64px rgba(0,0,0,0.65), 0 0 0 2px var(--accent);
+            z-index: 5;
+        }
+        .film-card img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s;
+        }
+        .film-card:hover img { transform: scale(1.08); }
+
+        .film-label {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 28px 14px 14px;
+            background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 100%);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.9);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .film-card:hover .film-label { opacity: 1; }
+
+        .film-card::after {
+            content: 'VIEW';
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            letter-spacing: 8px;
+            color: #fff;
+            background: rgba(188,155,128,0.80);
+            padding: 10px 22px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            pointer-events: none;
+        }
+        .film-card:hover::after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        @media (max-width: 1024px) {
+            .film-card { width: clamp(240px, 38vw, 340px); }
+        }
+        @media (max-width: 768px) {
+            .film-card { width: clamp(200px, 46vw, 280px); }
+            .scroll-left, .scroll-right, .scroll-left2 { animation-duration: 32s; }
+        }
+        @media (max-width: 480px) {
+            .film-card { width: clamp(160px, 54vw, 220px); }
+            .filmstrip-wrapper { gap: 10px; }
+        }
+		
+		a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+		.c-info-text a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+		html {
+    scroll-behavior: smooth;
+}
+
+nav > a {
+    cursor: pointer;
+}
+
+
+    </style>
+</head>
+<body id="top">
+
+<!-- Splash -->
+<div id="logo-splash">
+    <img src="https://i.postimg.cc/XqTsSMm6/kc-logo-wh.png" alt="KC Creations Logo">
+	<h2>Put it on fullscreen</h2>
+</div>
+
+<!-- BG FX -->
+<div class="bg-orbs">
+    <div class="orb a"></div>
+    <div class="orb b"></div>
+    <div class="orb c"></div>
+</div>
+<div class="floating-elements">
+    <img src="https://img.icons8.com/ios-filled/100/f0f0f0/triangle.png" class="float f1" alt="">
+    <img src="https://img.icons8.com/ios-filled/100/ffffff/circle.png" class="float f2" alt="">
+    <img src="https://img.icons8.com/ios-filled/100/aaaaaa/square.png" class="float f3" alt="">
+    <img src="https://img.icons8.com/ios-filled/100/f0f0f0/pentagon.png" class="float f4" alt="">
+</div>
+
+<!-- NAV -->
+<nav id="header">
+    <a href="#top" aria-label="Go to top of website">
+        <img 
+            src="https://i.postimg.cc/XqTsSMm6/kc-logo-wh.png" 
+            alt="KC Creations Logo"
+            width="60"
+            height="60"
+            style="object-fit: cover;"
+        >
+    </a>
+
+    <div class="nav-right">
+        <div class="nav-links" id="navMenu">
+            <a href="#graphics">Graphic Design</a>
+            <a href="#contact">Contact</a>
+        </div>
+
+        <!-- Theme Toggle -->
+        <div class="theme-toggle" id="themeToggle">
+            <button class="theme-btn active" id="btnLight" onclick="setTheme('light')">
+                <!-- Sun SVG -->
+            </button>
+
+            <button class="theme-btn" id="btnDark" onclick="setTheme('dark')">
+                <!-- Moon SVG -->
+            </button>
+        </div>
+
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+    <!-- YouTube video background -->
+    <!-- Opening image (fades out after 4s, then video takes over) -->
+	<div class="hero-img-bg" id="heroImgBg"></div>
+
+    <!-- Hero Text -->
+    <div class="hero-text-block">
+        <p class="hero-eyebrow">one mind</p>
+        <h1 class="hero-heading">Many<br>Stories</h1>
+        <p class="hero-tagline">idea <span>|</span> shoot <span>|</span> edit <span>|</span> create <span>|</span> Repeat</p>
+    </div>
+
+    <div class="hero-cta-wrap">
+        <a href="#graphics" class="hero-cta">
+            View Work
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </a>
+    </div>
+    <div class="hero-scroll">Scroll to explore</div>
+</section>
+
+<!-- BIO -->
+<div class="bio-wrapper">
+    <div class="bio-box">
+		<p class="section-label">who</p>
+            <h2 class="section-title reveal">I am</h2>
+        <p id="bio-text"></p>
+    </div>
+</div>
+
+<div class="hr-line"></div>
+
+<!-- WHAT I DO -->
+<div class="panel" id="about">
+    <div class="section-header">
+        <div>
+            <p class="section-label">Expertise</p>
+            <h2 class="section-title reveal">WHAT I DO</h2>
+        </div>
+    </div>
+    <div class="profiles-grid">
+        <div class="profile-card reveal">
+            <div class="profile-num">01</div>
+            <div class="profile-icon-wrap">🎨</div>
+            <h3>Graphic Designer</h3>
+            <p>Creating stunning visual identities, posters, branding materials, and social media graphics that capture attention and communicate effectively.</p>
+        </div>
+        <div class="profile-card reveal">
+            <div class="profile-num">02</div>
+            <div class="profile-icon-wrap">🎬</div>
+            <h3>Video Editor</h3>
+            <p>Crafting compelling video narratives with professional editing, color grading, and seamless transitions that engage audiences.</p>
+        </div>
+        <div class="profile-card reveal">
+            <div class="profile-num">03</div>
+            <div class="profile-icon-wrap">🎞️</div>
+            <h3>Motion Graphics</h3>
+            <p>Bringing designs to life with dynamic animations, kinetic typography, and eye-catching motion elements for digital content.</p>
+        </div>
+
+        <div class="profile-card reveal">
+            <div class="profile-num">04</div>
+            <div class="profile-icon-wrap">📱</div>
+            <h3>Social Media Management</h3>
+            <p>Managing and growing brand presence across Instagram, Facebook, and other platforms with engaging content strategies and consistent visual identity.</p>
+        </div>
+        <div class="profile-card reveal">
+            <div class="profile-num">05</div>
+            <div class="profile-icon-wrap">🌐</div>
+            <h3>Website Management</h3>
+            <p>Maintaining, updating, and optimising websites for performance, design consistency, and seamless user experience across all devices.</p>
+        </div>
+        <div class="profile-card reveal">
+            <div class="profile-num">06</div>
+            <div class="profile-icon-wrap">📊</div>
+            <h3>Digital Marketing</h3>
+            <p>Planning and executing result-driven digital campaigns — from SEO and paid ads to content marketing — that build brand awareness and drive growth.</p>
+        </div>
+        <div class="profile-card reveal">
+            <div class="profile-num">07</div>
+            <div class="profile-icon-wrap">📸</div>
+            <h3>Photography</h3>
+            <p>Capturing compelling images with a sharp eye for composition, lighting, and storytelling — from product shoots to portraits and events.</p>
+        </div>
+        <div class="profile-card reveal">
+            <div class="profile-num">08</div>
+            <div class="profile-icon-wrap">🎥</div>
+            <h3>Videography</h3>
+            <p>Shooting cinematic footage for brand films, event coverage, reels, and promotional content that tells powerful visual stories.</p>
+        </div>
+    </div>
+</div>
+
+<div class="hr-line"></div>
+
+<!-- TOOLS -->
+<div class="panel tools-bg">
+    <div class="section-header">
+        <div>
+            <p class="section-label">Arsenal</p>
+            <h2 class="section-title reveal">TOOLS I USE</h2>
+        </div>
+    </div>
+
+    <!-- Creative Software -->
+    <div class="tools-sub-label reveal">Creative Software</div>
+    <div class="software-grid">
+        <div class="soft-card reveal">
+            <img src="https://img.icons8.com/color/96/adobe-photoshop.png" alt="Photoshop">
+            <p>Photoshop</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://img.icons8.com/color/96/adobe-illustrator.png" alt="Illustrator">
+            <p>Illustrator</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://img.icons8.com/color/96/adobe-premiere-pro.png" alt="Premiere Pro">
+            <p>Premiere Pro</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://img.icons8.com/color/96/adobe-after-effects.png" alt="After Effects">
+            <p>After Effects</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://img.icons8.com/color/96/blender-3d.png" alt="Blender">
+            <p>Blender</p>
+        </div>
+
+        <div class="soft-card reveal">
+            <img src="https://img.icons8.com/color/96/adobe-lightroom.png" alt="Lightroom">
+            <p>Lightroom</p>
+        </div>
+
+    </div>
+
+    <!-- Meta & Marketing -->
+    <div class="tools-sub-label reveal" style="margin-top:48px;">Meta &amp; Marketing</div>
+    <div class="software-grid">
+        <div class="soft-card reveal">
+            <img src="https://img.icons8.com/color/96/meta.png" alt="Meta">
+            <p>Meta Business</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://img.icons8.com/color/96/facebook-new.png" alt="Facebook Ads">
+            <p>Facebook Ads</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://img.icons8.com/color/96/instagram-new.png" alt="Instagram">
+            <p>Instagram</p>
+        </div>
+
+    </div>
+
+    <!-- AI Tools -->
+    <div class="tools-sub-label reveal" style="margin-top:48px;">AI Tools</div>
+    <div class="software-grid">
+        <div class="soft-card reveal">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0iP6t_1iswoujt8HoIWRdIgILpcEw76mvhm-KvHPTrg&s=10" alt="ChatGPT">
+            <p>ChatGPT</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/claude-ai.svg"
+                 onerror="this.onerror=null;this.src='https://img.icons8.com/fluency/96/artificial-intelligence.png'">
+            <p>Claude</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://storage.googleapis.com/gweb-uniblog-publish-prod/images/Gemini_SparkIcon_.width-500.format-webp.webp" alt="Gemini"
+                 onerror="this.onerror=null;this.src='https://img.icons8.com/color/96/gemini-ai.png'">
+            <p>Gemini</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://clippie.ai/model-thumbnails/seedance.webp" alt="Seedance"
+                 onerror="this.onerror=null;this.src='https://img.icons8.com/fluency/96/image-gallery.png'">
+            <p>Seedance</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://www.freelogovectors.net/wp-content/uploads/2026/03/kling-ai-logo-icon_freelogovectors.net_.png" alt="Kling"
+                 onerror="this.onerror=null;this.src='https://img.icons8.com/fluency/96/video-editing.png'">
+            <p>Kling</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://ottokit.s3.us-west-2.amazonaws.com/production/elevenlabs.png" alt="ElevenLabs"
+                 onerror="this.onerror=null;this.src='https://img.icons8.com/fluency/96/microphone.png'">
+            <p>ElevenLabs</p>
+        </div>
+    </div>
+</div>
+
+<div class="hr-line"></div>
+
+<!-- CLIENTS -->
+<div class="clients-section clients-bg">
+    <div class="section-header">
+        <div>
+            <p class="section-label">Trusted By</p>
+            <h2 class="section-title reveal">CLIENTS</h2>
+        </div>
+    </div>
+    <div class="software-grid">
+        <div class="soft-card reveal">
+            <img src="https://i.postimg.cc/Hx93YWv8/lion-ads.png" alt="Lionster">
+            <p>Lionster</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://i.postimg.cc/ZqrxHKSf/mile-stone.png" alt="Milestone IT">
+            <p>Milestone IT</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://i.postimg.cc/QNn1pWTz/logo-01.png" alt="Boby Group">
+            <p>Boby Group</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://i.postimg.cc/qRqgRjjX/login-log-file-01.jpg" alt="Login">
+            <p>Login</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://i.postimg.cc/1tFpkfpk/Asset-1-2x-100.jpg" alt="Vyshna's Physiozone">
+            <p>Physiozone</p>
+        </div>
+        <div class="soft-card reveal">
+            <img src="https://i.postimg.cc/65yVShKd/tag4.png" alt="Tag Ads">
+            <p>TDA Tag 4</p>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- GRAPHIC DESIGN -->
+<div class="panel" id="graphics">
+    <div class="section-header">
+        <div>
+            <p class="section-label">Visual</p>
+            <h2 class="section-title reveal">GRAPHIC DESIGN</h2>
+        </div>
+        <a href="https://www.behance.net/krithikayiniku" target="_blank" class="section-link-btn reveal">
+            show more works
+            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>
+    </div>
+
+    <!-- FILMSTRIP ROWS — Apple TV style -->
+    <div class="filmstrip-wrapper">
+
+        <!-- Row 1: scrolls LEFT -->
+        <div class="filmstrip-track" id="track1">
+            <div class="filmstrip-inner scroll-left">
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/04d91f247759635.69e203a29bcf8.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/04d91f247759635.69e203a29bcf8.jpg" alt="Vishu 1"><span class="film-label">Vishu Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/223f12247759635.69e203a29c4ef.jpeg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/223f12247759635.69e203a29c4ef.jpeg" alt="Vishu 2"><span class="film-label">Vishu Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/437fe9247759635.69e203a29c104.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/437fe9247759635.69e203a29c104.jpg" alt="Vishu 3"><span class="film-label">Vishu Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/31c936247759635.69e203a29e169.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/31c936247759635.69e203a29e169.jpg" alt="Vishu 4"><span class="film-label">Vishu Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/3c4579247759635.69e203a29dd92.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/3c4579247759635.69e203a29dd92.jpg" alt="Vishu 5"><span class="film-label">Vishu Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/c1de40247759635.69e203a29c8a8.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/c1de40247759635.69e203a29c8a8.jpg" alt="Vishu 6"><span class="film-label">Vishu Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/b31204247493121.69dcab9a6de47.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/b31204247493121.69dcab9a6de47.jpg" alt="Easter 1"><span class="film-label">Easter Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/8c4ea6247493121.69dcab9a6f0e0.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/8c4ea6247493121.69dcab9a6f0e0.jpg" alt="Easter 2"><span class="film-label">Easter Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/0b8983247493121.69dcab9a6eb20.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/0b8983247493121.69dcab9a6eb20.jpg" alt="Easter 3"><span class="film-label">Easter Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/cc2fb9254878709.6a900cacbe0b3.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/cc2fb9254878709.6a900cacbe0b3.jpg" alt="Independence 1"><span class="film-label">Independence Day</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/54f0b4254878709.6a900cacbd524.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/54f0b4254878709.6a900cacbd524.jpg" alt="Independence 2"><span class="film-label">Independence Day</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/067ac3254878709.6a900cacbdaeb.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/067ac3254878709.6a900cacbdaeb.jpg" alt="Independence 3"><span class="film-label">Independence Day</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/cf9cd4254878709.6a900cacbc7e9.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/cf9cd4254878709.6a900cacbc7e9.jpg" alt="Independence 4"><span class="film-label">Independence Day</span></div>
+                <!-- Duplicate for seamless loop -->
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/04d91f247759635.69e203a29bcf8.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/04d91f247759635.69e203a29bcf8.jpg" alt="Vishu 1"><span class="film-label">Vishu Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/223f12247759635.69e203a29c4ef.jpeg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/223f12247759635.69e203a29c4ef.jpeg" alt="Vishu 2"><span class="film-label">Vishu Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/437fe9247759635.69e203a29c104.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/437fe9247759635.69e203a29c104.jpg" alt="Vishu 3"><span class="film-label">Vishu Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/31c936247759635.69e203a29e169.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/31c936247759635.69e203a29e169.jpg" alt="Vishu 4"><span class="film-label">Vishu Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/3c4579247759635.69e203a29dd92.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/3c4579247759635.69e203a29dd92.jpg" alt="Vishu 5"><span class="film-label">Vishu Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/c1de40247759635.69e203a29c8a8.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/c1de40247759635.69e203a29c8a8.jpg" alt="Vishu 6"><span class="film-label">Vishu Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/b31204247493121.69dcab9a6de47.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/b31204247493121.69dcab9a6de47.jpg" alt="Easter 1"><span class="film-label">Easter Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/8c4ea6247493121.69dcab9a6f0e0.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/8c4ea6247493121.69dcab9a6f0e0.jpg" alt="Easter 2"><span class="film-label">Easter Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/0b8983247493121.69dcab9a6eb20.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/0b8983247493121.69dcab9a6eb20.jpg" alt="Easter 3"><span class="film-label">Easter Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/cc2fb9254878709.6a900cacbe0b3.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/cc2fb9254878709.6a900cacbe0b3.jpg" alt="Independence 1"><span class="film-label">Independence Day</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/54f0b4254878709.6a900cacbd524.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/54f0b4254878709.6a900cacbd524.jpg" alt="Independence 2"><span class="film-label">Independence Day</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/067ac3254878709.6a900cacbdaeb.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/067ac3254878709.6a900cacbdaeb.jpg" alt="Independence 3"><span class="film-label">Independence Day</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/cf9cd4254878709.6a900cacbc7e9.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/cf9cd4254878709.6a900cacbc7e9.jpg" alt="Independence 4"><span class="film-label">Independence Day</span></div>
+            </div>
+        </div>
+
+        <!-- Row 2: scrolls RIGHT -->
+        <div class="filmstrip-track" id="track2">
+            <div class="filmstrip-inner scroll-right">
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/44e0c2254868355.6a8fc6e1d9c0f.jpeg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/44e0c2254868355.6a8fc6e1d9c0f.jpeg" alt="Onam 1"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/c570ff254868355.6a8fc6e1da63b.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/c570ff254868355.6a8fc6e1da63b.jpg" alt="Onam 2"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/1af142254868355.6a8fc6e1da17b.jpeg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/1af142254868355.6a8fc6e1da17b.jpeg" alt="Onam 3"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/e92fa4254868355.6a8fc6e1daae5.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e92fa4254868355.6a8fc6e1daae5.jpg" alt="Onam 4"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/da4836254868355.6a8fc6e1dbcf8.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/da4836254868355.6a8fc6e1dbcf8.jpg" alt="Onam 5"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/ef1418235848925.68df92c8335bb.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/ef1418235848925.68df92c8335bb.jpg" alt="Vijaya 2"><span class="film-label">Vijayadashami</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/cd8a97235848925.68df92c8327fe.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/cd8a97235848925.68df92c8327fe.jpg" alt="Vijaya 3"><span class="film-label">Vijayadashami</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/ce2d5b246187285.69be82461b5b3.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/ce2d5b246187285.69be82461b5b3.jpg" alt="Eid 1"><span class="film-label">Eid Mubarak</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/4c007d246187285.69be82461c44d.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/4c007d246187285.69be82461c44d.jpg" alt="Eid 2"><span class="film-label">Eid Mubarak</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/a57957217123507.678b588801f1f.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/a57957217123507.678b588801f1f.jpg" alt="Special 1"><span class="film-label">Special Day</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/58537c217123507.678b588803a94.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/58537c217123507.678b588803a94.jpg" alt="Special 2"><span class="film-label">Special Day</span></div>
+                <!-- Duplicate for seamless loop -->
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/44e0c2254868355.6a8fc6e1d9c0f.jpeg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/44e0c2254868355.6a8fc6e1d9c0f.jpeg" alt="Onam 1"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/c570ff254868355.6a8fc6e1da63b.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/c570ff254868355.6a8fc6e1da63b.jpg" alt="Onam 2"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/1af142254868355.6a8fc6e1da17b.jpeg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/1af142254868355.6a8fc6e1da17b.jpeg" alt="Onam 3"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/e92fa4254868355.6a8fc6e1daae5.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e92fa4254868355.6a8fc6e1daae5.jpg" alt="Onam 4"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/da4836254868355.6a8fc6e1dbcf8.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/da4836254868355.6a8fc6e1dbcf8.jpg" alt="Onam 5"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/43da43235848925.68df92c832cfd.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/43da43235848925.68df92c832cfd.jpg" alt="Vijaya 1"><span class="film-label">Vijayadashami</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/ef1418235848925.68df92c8335bb.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/ef1418235848925.68df92c8335bb.jpg" alt="Vijaya 2"><span class="film-label">Vijayadashami</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/cd8a97235848925.68df92c8327fe.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/cd8a97235848925.68df92c8327fe.jpg" alt="Vijaya 3"><span class="film-label">Vijayadashami</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/ce2d5b246187285.69be82461b5b3.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/ce2d5b246187285.69be82461b5b3.jpg" alt="Eid 1"><span class="film-label">Eid Mubarak</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/4c007d246187285.69be82461c44d.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/4c007d246187285.69be82461c44d.jpg" alt="Eid 2"><span class="film-label">Eid Mubarak</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/a57957217123507.678b588801f1f.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/a57957217123507.678b588801f1f.jpg" alt="Special 1"><span class="film-label">Special Day</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/58537c217123507.678b588803a94.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/58537c217123507.678b588803a94.jpg" alt="Special 2"><span class="film-label">Special Day</span></div>
+            </div>
+        </div>
+
+    </div><!-- /filmstrip-wrapper -->
+
+        <!-- Row 3: scrolls LEFT (slower) -->
+        <div class="filmstrip-track" style="margin-top:0;">
+            <div class="filmstrip-inner scroll-left2">
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/44e0c2254868355.6a8fc6e1d9c0f.jpeg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/44e0c2254868355.6a8fc6e1d9c0f.jpeg" alt="Onam 1"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/43da43235848925.68df92c832cfd.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/43da43235848925.68df92c832cfd.jpg" alt="Vijaya 1"><span class="film-label">Vijayadashami</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/cc2fb9254878709.6a900cacbe0b3.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/cc2fb9254878709.6a900cacbe0b3.jpg" alt="Independence 1"><span class="film-label">Independence Day</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/223f12247759635.69e203a29c4ef.jpeg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/223f12247759635.69e203a29c4ef.jpeg" alt="Vishu 2"><span class="film-label">Vishu Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/c570ff254868355.6a8fc6e1da63b.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/c570ff254868355.6a8fc6e1da63b.jpg" alt="Onam 2"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/ce2d5b246187285.69be82461b5b3.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/ce2d5b246187285.69be82461b5b3.jpg" alt="Eid 1"><span class="film-label">Eid Mubarak</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/54f0b4254878709.6a900cacbd524.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/54f0b4254878709.6a900cacbd524.jpg" alt="Independence 2"><span class="film-label">Independence Day</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/b31204247493121.69dcab9a6de47.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/b31204247493121.69dcab9a6de47.jpg" alt="Easter 1"><span class="film-label">Easter Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/e92fa4254868355.6a8fc6e1daae5.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e92fa4254868355.6a8fc6e1daae5.jpg" alt="Onam 4"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/a57957217123507.678b588801f1f.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/a57957217123507.678b588801f1f.jpg" alt="Special 1"><span class="film-label">Special Day</span></div>
+                <!-- Duplicate for seamless loop -->
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/44e0c2254868355.6a8fc6e1d9c0f.jpeg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/44e0c2254868355.6a8fc6e1d9c0f.jpeg" alt="Onam 1"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/43da43235848925.68df92c832cfd.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/43da43235848925.68df92c832cfd.jpg" alt="Vijaya 1"><span class="film-label">Vijayadashami</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/cc2fb9254878709.6a900cacbe0b3.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/cc2fb9254878709.6a900cacbe0b3.jpg" alt="Independence 1"><span class="film-label">Independence Day</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/223f12247759635.69e203a29c4ef.jpeg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/223f12247759635.69e203a29c4ef.jpeg" alt="Vishu 2"><span class="film-label">Vishu Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/c570ff254868355.6a8fc6e1da63b.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/c570ff254868355.6a8fc6e1da63b.jpg" alt="Onam 2"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/hd/ce2d5b246187285.69be82461b5b3.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/ce2d5b246187285.69be82461b5b3.jpg" alt="Eid 1"><span class="film-label">Eid Mubarak</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/54f0b4254878709.6a900cacbd524.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/54f0b4254878709.6a900cacbd524.jpg" alt="Independence 2"><span class="film-label">Independence Day</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/b31204247493121.69dcab9a6de47.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/b31204247493121.69dcab9a6de47.jpg" alt="Easter 1"><span class="film-label">Easter Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/disp/e92fa4254868355.6a8fc6e1daae5.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/e92fa4254868355.6a8fc6e1daae5.jpg" alt="Onam 4"><span class="film-label">Onam Posters</span></div>
+                <div class="film-card" onclick="openImg('https://mir-s3-cdn-cf.behance.net/project_modules/1400/a57957217123507.678b588801f1f.jpg')"><img src="https://mir-s3-cdn-cf.behance.net/project_modules/1400/a57957217123507.678b588801f1f.jpg" alt="Special 1"><span class="film-label">Special Day</span></div>
+            </div>
+        </div>
+
+    </div><!-- /filmstrip-end -->
+
+                   <div>
+       <p class="section-label">cuts</p>
+            <h2 class="section-title reveal">Video Editing</h2>
+
+</div>
+
+<!-- CONTACT QUESTIONNAIRE -->
+<section class="contact-section" id="contact">
+    <div class="contact-grid">
+
+        <!-- Left: info -->
+        <div>
+            <p class="contact-label">Get In Touch</p>
+            <h2 class="contact-heading">LET'S WORK<br><span>TOGETHER</span></h2>
+            <p class="contact-desc">Have a project in mind? Fill in the form and your details will be sent directly to my WhatsApp — I'll get back to you as soon as possible.</p>
+
+            <div class="contact-info-items">
+                <div class="c-info-item">
+                    <div class="c-info-icon">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/960px-WhatsApp.svg.png" alt="WhatsApp" style="width:26px;height:26px;object-fit:contain;">
+                    </div>
+                    <div class="c-info-text">
+                        <p>Call now </p>
+                        <a href="tel:+919656287324">
+    <p>+91 9656287324</p>
+</a>
+                    </div>
+                </div>
+                <div class="c-info-item">
+                    <div class="c-info-icon">
+                        <img src="https://png.pngtree.com/png-vector/20230413/ourmid/pngtree-3d-location-icon-clipart-in-transparent-background-vector-png-image_6704161.png" alt="Location" style="width:26px;height:26px;object-fit:contain;">
+                    </div>
+                    <div class="c-info-text">
+    <p>Location</p>
+
+    <a href="https://maps.app.goo.gl/N2vikF67K2fh34jh9" target="_blank">
+        <p>Kerala, India</p>
+    </a>
+</div>
+                </div>
+            </div>
+
+            <div class="contact-socials-row">
+                <a class="c-soc" href="https://www.instagram.com/kc_creation1121/" target="_blank" title="Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                </a>
+                <a class="c-soc" href="https://www.facebook.com/profile.php?id=61585485728810" target="_blank" title="Facebook">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                </a>
+                <a class="c-soc" href="https://www.behance.net/krithikayiniku" target="_blank" title="Behance">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12H15M3 6h6a3 3 0 0 1 0 6H3zm0 0v12h7a3 3 0 0 0 0-6H3M15 6h6M15 10h6M15 14h4"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <!-- Right: form -->
+        <div class="contact-form-wrap">
+            <div class="form-row-2">
+                <div class="fgroup">
+                    <label>Your Name</label>
+                    <input type="text" id="cq-name" placeholder="e.g. Rahul Nair">
+                </div>
+                <div class="fgroup">
+                    <label>Phone (optional)</label>
+                    <input type="tel" id="cq-phone" placeholder="+91 00000 00000">
+                </div>
+            </div>
+            <div class="fgroup">
+                <label>Service Needed</label>
+                <select id="cq-service">
+                    <option value="" disabled selected>Select a service...</option>
+                    <option>Graphic Design / Poster</option>
+                    <option>Video Editing</option>
+                    <option>Motion Graphics</option>
+                    <option>Social Media Creatives</option>
+                    <option>Brand Identity</option>
+                    <option>Other</option>
+                </select>
+            </div>
+            <div class="fgroup">
+                <label>Project Budget</label>
+                <select id="cq-budget">
+                    <option value="" disabled selected>Select a budget range...</option>
+                    <option>Under ₹500</option>
+                    <option>₹500 – ₹1500</option>
+                    <option>₹1500 – ₹3000</option>
+                    <option>₹3000 – ₹10000</option>
+                    <option>₹10000+</option>
+                    <option>Let's discuss</option>
+                </select>
+            </div>
+            <div class="fgroup">
+                <label>Project Deadline</label>
+                <input type="text" id="cq-deadline" placeholder="e.g. Within 2 weeks, ASAP, No rush">
+            </div>
+            <div class="fgroup">
+                <label>Project Description</label>
+                <textarea id="cq-message" placeholder="Describe your project — what you need, references, style preferences..."></textarea>
+            </div>
+            <button class="wa-submit" onclick="sendContactToWhatsApp()">
+                Send via WhatsApp
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <h2 class="footer-name"><span>KRITHIK</span> <span class="thin">CHANDRAN</span></h2>
+    <p>© 2026 Krithik Chandran — Built with KC Creations</p>
+</footer>
+
+<!-- MODAL -->
+<div id="modal" onclick="closeModal()"></div>
+
+<script>
+    // ── NAV: transparent over the hero, solid once scrolled past it ──
+    (function() {
+        const navEl = document.querySelector('nav');
+        function updateNavBg() {
+            if (window.scrollY > 40) {
+                navEl.classList.add('nav-scrolled');
+            } else {
+                navEl.classList.remove('nav-scrolled');
+            }
+        }
+        window.addEventListener('scroll', updateNavBg, { passive: true });
+        updateNavBg();
+    })();
+
+    // ── HERO IMAGE → VIDEO CROSSFADE ──
+    // Show image for 4 seconds, then fade it out to reveal the video
+    setTimeout(function() {
+        const img = document.getElementById('heroImgBg');
+        if (img) img.classList.add('hidden');
+    }, 4000);
+
+    // ── THEME TOGGLE ──
+    function setTheme(mode) {
+        if (mode === 'dark') {
+            document.body.classList.add('dark');
+            document.getElementById('btnDark').classList.add('active');
+            document.getElementById('btnLight').classList.remove('active');
+            localStorage.setItem('kc-theme', 'dark');
+        } else {
+            document.body.classList.remove('dark');
+            document.getElementById('btnLight').classList.add('active');
+            document.getElementById('btnDark').classList.remove('active');
+            localStorage.setItem('kc-theme', 'light');
+        }
+    }
+    // Load saved preference — default is light
+    (function() {
+        const saved = localStorage.getItem('kc-theme');
+        if (saved === 'dark') {
+            document.body.classList.add('dark');
+            document.getElementById('btnDark').classList.add('active');
+            document.getElementById('btnLight').classList.remove('active');
+        }
+    })();
+
+    // Contact questionnaire → WhatsApp
+    function sendContactToWhatsApp() {
+        const name     = document.getElementById('cq-name').value.trim();
+        const phone    = document.getElementById('cq-phone').value.trim();
+        const service  = document.getElementById('cq-service').value;
+        const budget   = document.getElementById('cq-budget').value;
+        const deadline = document.getElementById('cq-deadline').value.trim();
+        const message  = document.getElementById('cq-message').value.trim();
+
+        if (!name || !message) {
+            alert('Please fill in your name and project description.');
+            return;
+        }
+
+        let text = `👋 *New Project Enquiry — KC Creations*\n\n`;
+        text += `*Name:* ${name}\n`;
+        if (phone)    text += `*Phone:* ${phone}\n`;
+        if (service)  text += `*Service:* ${service}\n`;
+        if (budget)   text += `*Budget:* ${budget}\n`;
+        if (deadline) text += `*Deadline:* ${deadline}\n`;
+        text += `\n*Project Description:*\n${message}`;
+
+        const waNumber = '919656287324';
+        window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+
+    // Fast word-by-word reveal — no lag, no per-character spam
+    const bioText = "Hi, I'm Krithik Chandran — a Creative Designer & Digital Strategist based in Kerala, India. I specialise in video editing, motion graphics, graphic design, social media management, digital marketing, photography, and videography. Whether it's crafting a brand identity, managing a social presence, shooting cinematic footage, or leveraging AI tools for cutting-edge content, I blend technical skill with creative vision to produce work that genuinely stands out.";
+    const bioElement = document.getElementById('bio-text');
+    const words = bioText.split(' ');
+    const DELAY_START = 1600;   // ms after page load before first word
+    const WORD_INTERVAL = 55;   // ms between each word
+
+    words.forEach((word, i) => {
+        const span = document.createElement('span');
+        span.className = 'bio-word';
+        span.textContent = word + ' ';
+        span.style.animationDelay = (DELAY_START + i * WORD_INTERVAL) + 'ms';
+        bioElement.appendChild(span);
+    });
+
+    // Mouse parallax
+    document.addEventListener('mousemove', e => {
+        document.querySelectorAll('.float').forEach((el, i) => {
+            const speed = (i + 1) * 0.018;
+            el.style.transform = `translate(${e.clientX * speed}px, ${e.clientY * speed}px)`;
+        });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+        el.style.transitionDelay = `${i * 60}ms`;
+        observer.observe(el);
+    });
+
+    // ── FILMSTRIP: animate only when in view, lock scroll for 5 steps ──
+    const filmstrips = document.querySelectorAll('.filmstrip-inner');
+    const graphicsSection = document.getElementById('graphics');
+
+    let filmstripLocked = false;
+    let scrollStepsLeft = 0;
+    let lastScrollTime = 0;
+    const SCROLL_STEPS = 5;
+    const SCROLL_COOLDOWN = 120; // ms between steps
+
+    // Intersection observer to start/stop animation
+    const filmObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            filmstrips.forEach(fs => {
+                if (entry.isIntersecting) {
+                    fs.classList.add('playing');
+                } else {
+                    fs.classList.remove('playing');
+                    filmstripLocked = false;
+                    scrollStepsLeft = 0;
+                }
+            });
+        });
+    }, { threshold: 0.3 });
+
+    if (graphicsSection) filmObserver.observe(graphicsSection);
+
+    // Scroll lock logic
+    function handleFilmstripScroll(e) {
+        const rect = graphicsSection.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2;
+
+        if (!inView) return;
+
+        const now = Date.now();
+        if (now - lastScrollTime < SCROLL_COOLDOWN) return;
+        lastScrollTime = now;
+
+        // Enter lock on first scroll into section
+        if (!filmstripLocked && scrollStepsLeft === 0) {
+            filmstripLocked = true;
+            scrollStepsLeft = SCROLL_STEPS;
+        }
+
+        if (filmstripLocked && scrollStepsLeft > 0) {
+            e.preventDefault();
+            scrollStepsLeft--;
+
+            if (scrollStepsLeft === 0) {
+                filmstripLocked = false;
+            }
+            return;
+        }
+    }
+
+    window.addEventListener('wheel', handleFilmstripScroll, { passive: false });
+
+    // Touch support
+    let touchStartY = 0;
+    window.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
+    window.addEventListener('touchmove', e => {
+        const deltaY = touchStartY - e.touches[0].clientY;
+        if (Math.abs(deltaY) > 10) handleFilmstripScroll(e);
+    }, { passive: false });
+
+    // ── FILMSTRIP PARALLAX ──
+    const track1 = document.getElementById('track1');
+    const track2 = document.getElementById('track2');
+    const track3 = document.getElementById('track3');
+
+    function updateParallax() {
+        if (!graphicsSection) return;
+        const rect = graphicsSection.getBoundingClientRect();
+        const sectionH = graphicsSection.offsetHeight;
+        // progress: 0 = section top at viewport bottom, 1 = section bottom at viewport top
+        const progress = 1 - (rect.bottom / (window.innerHeight + sectionH));
+        const clamped = Math.max(0, Math.min(1, progress));
+        // Map to a -60px … +60px translateY offset per row (alternating direction)
+        const amp = 70;
+        const y1 =  (clamped - 0.5) * amp * -1;
+        const y2 =  (clamped - 0.5) * amp *  1;
+        const y3 =  (clamped - 0.5) * amp * -0.6;
+
+        if (track1) track1.style.transform = `translateY(${y1}px)`;
+        if (track2) track2.style.transform = `translateY(${y2}px)`;
+        if (track3) track3.style.transform = `translateY(${y3}px)`;
+    }
+
+    window.addEventListener('scroll', updateParallax, { passive: true });
+    updateParallax();
+
+    // Modal
+    const modal = document.getElementById('modal');
+    function openModal(src) {
+        modal.classList.add('active');
+        modal.innerHTML = `<div class="modal-content"><iframe src="${src}?autoplay=1" allowfullscreen></iframe></div>`;
+    }
+    function openImg(src) {
+        modal.classList.add('active');
+        modal.innerHTML = `<div class="modal-content"><img src="${src}" alt="Portfolio Work"></div>`;
+    }
+    function closeModal() {
+        modal.classList.remove('active');
+        setTimeout(() => { modal.innerHTML = ''; }, 400);
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    // Hamburger
+    function toggleMenu() {
+        document.getElementById('navMenu').classList.toggle('active');
+    }
+
+    // Theme toggle removed — dark mode only
+</script>
+</body>
+</html>
