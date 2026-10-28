@@ -3,13 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>KC Creations</title>
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="https://i.postimg.cc/hjFNhfVN/kc-falcon.jpg">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Krithik Chandran | Creative Portfolio</title>
     <meta name="description" content="Creative Editor & Designer | Video Editing | Motion Graphics | Graphic Design">
     <meta name="keywords" content="Video Editor, Graphic Designer, Motion Graphics, Kerala Designer">
@@ -37,6 +30,7 @@
             --accent-glow:   rgba(221,194,167,0.15);
 
             --nav-bg:        rgba(43,39,38,0.88);
+            --nav-glass:     rgba(43,39,38,0.32);
             --hero-gradient: linear-gradient(110deg,#151313 0%,#2B2726 45%,#383330 100%);
             --shadow:        0 4px 24px rgba(0,0,0,0.30);
             --shadow-lg:     0 16px 48px rgba(0,0,0,0.50);
@@ -65,7 +59,8 @@
             --accent-hover:  #6B4830;   /* deep walnut — hover                */
             --accent-glow:   rgba(139,98,67,0.12);
 
-            --nav-bg:        rgba(245,239,230,80);
+            --nav-bg:        rgba(245,239,230,0.88);
+            --nav-glass:     rgba(245,239,230,0.32);
             --hero-gradient: linear-gradient(110deg,#EDE4D8 0%,#F5EFE6 50%,#E8DDD0 100%);
             --shadow:        0 4px 24px rgba(80,60,40,0.10);
             --shadow-lg:     0 16px 48px rgba(80,60,40,0.18);
@@ -132,20 +127,23 @@
             justify-content: space-between;
             align-items: center;
             z-index: 300;
-            background: transparent;
-            backdrop-filter: none;
-            border: 1px solid transparent;
+            /* frosted-glass rounded rectangle */
+            background: var(--nav-glass);
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            border: 1px solid var(--border);
             border-radius: 999px;
-            box-shadow: none;
+            box-shadow: var(--shadow);
             transition: background 0.4s ease, border-color 0.4s ease,
                         box-shadow 0.4s ease, backdrop-filter 0.4s ease,
                         top 0.3s ease, width 0.3s ease;
         }
         nav.nav-scrolled {
             background: var(--nav-bg);
-            backdrop-filter: blur(24px);
-            border-color: var(--border);
-            box-shadow: var(--shadow);
+            backdrop-filter: blur(24px) saturate(160%);
+            -webkit-backdrop-filter: blur(24px) saturate(160%);
+            border-color: var(--border-bright);
+            box-shadow: var(--shadow-lg);
         }
 
         /* Tablets / small laptops: shrink the pill proportionally */
@@ -365,7 +363,7 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             color: rgba(255,255,255,0.45);
-            opacity: 0;
+            opacity: 20;
             animation: fadeUp 1s ease 1s forwards;
         }
         .hero-tagline span {
@@ -500,13 +498,13 @@
         .bio-box {
             width: 100%;
 			max-width: 1920px;
-			margin: 0 auto;
+			margin: 40px auto 0;
 			box-sizing: boder border-box;
             background: var(--surface);
             border: 1px solid var(--border-bright);
             border-left: 4px solid var(--accent);
             border-radius: 8px;
-            padding: 40px 48px;
+            padding: 20px 48px 40px;
             opacity: 0;
             transform: translateX(60px);
             animation: slideRight 1s cubic-bezier(0.22,1,0.36,1) 1.6s forwards;
@@ -630,6 +628,21 @@
             transition: transform 0.4s;
         }
         .profile-card:hover .profile-icon-wrap { transform: scale(1.15) rotate(-5deg); }
+        .profile-icon-wrap .profile-line-icon {
+            width: 42px;
+            height: 42px;
+            display: block;
+            color: var(--accent);
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.7;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .profile-card:hover .profile-line-icon {
+            color: var(--accent-hover);
+        }
+
         .profile-card h3 {
             font-family: var(--font-display);
             font-size: 1.5rem;
@@ -1286,50 +1299,85 @@ nav > a {
     <div class="profiles-grid">
         <div class="profile-card reveal">
             <div class="profile-num">01</div>
-            <div class="profile-icon-wrap">🎨</div>
+            <div class="profile-icon-wrap"><svg class="profile-line-icon" viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M24 7C14.6 7 7 13.8 7 22.2c0 6.2 4.1 10.8 9.8 10.8H20c2.1 0 3.4 1.2 3.4 3.2 0 2.5 1.7 4 4.1 4 7.7 0 13.5-6.7 13.5-15.2C41 15 33.5 7 24 7Z"/>
+        <circle cx="15" cy="21" r="1.8"/><circle cx="20" cy="14.5" r="1.8"/><circle cx="28" cy="13.5" r="1.8"/><circle cx="34" cy="18" r="1.8"/>
+    </svg></div>
             <h3>Graphic Designer</h3>
             <p>Creating stunning visual identities, posters, branding materials, and social media graphics that capture attention and communicate effectively.</p>
         </div>
         <div class="profile-card reveal">
             <div class="profile-num">02</div>
-            <div class="profile-icon-wrap">🎬</div>
+            <div class="profile-icon-wrap"><svg class="profile-line-icon" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="7" y="11" width="34" height="26" rx="3"/>
+        <path d="m7 17 8-6 5 6 8-6 5 6 8-6M7 31l8-6 5 6 8-6 5 6 8-6"/>
+        <path d="M20 21.5 30 24l-10 2.5v-5Z"/>
+    </svg></div>
             <h3>Video Editor</h3>
             <p>Crafting compelling video narratives with professional editing, color grading, and seamless transitions that engage audiences.</p>
         </div>
         <div class="profile-card reveal">
             <div class="profile-num">03</div>
-            <div class="profile-icon-wrap">🎞️</div>
+            <div class="profile-icon-wrap"><svg class="profile-line-icon" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="9" y="7" width="30" height="34" rx="3"/>
+        <path d="M9 14h30M9 34h30"/>
+        <circle cx="15" cy="10.5" r="1.2"/><circle cx="21" cy="10.5" r="1.2"/><circle cx="27" cy="10.5" r="1.2"/><circle cx="33" cy="10.5" r="1.2"/>
+        <circle cx="15" cy="37.5" r="1.2"/><circle cx="21" cy="37.5" r="1.2"/><circle cx="27" cy="37.5" r="1.2"/><circle cx="33" cy="37.5" r="1.2"/>
+        <rect x="16" y="18" width="16" height="10" rx="1"/>
+    </svg></div>
             <h3>Motion Graphics</h3>
             <p>Bringing designs to life with dynamic animations, kinetic typography, and eye-catching motion elements for digital content.</p>
         </div>
 
         <div class="profile-card reveal">
             <div class="profile-num">04</div>
-            <div class="profile-icon-wrap">📱</div>
+            <div class="profile-icon-wrap"><svg class="profile-line-icon" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="13" y="6" width="22" height="36" rx="4"/>
+        <path d="M20 10h8M20 37h8"/>
+        <circle cx="24" cy="34" r="1.3"/>
+        <rect x="17" y="14" width="14" height="16" rx="1"/>
+    </svg></div>
             <h3>Social Media Management</h3>
             <p>Managing and growing brand presence across Instagram, Facebook, and other platforms with engaging content strategies and consistent visual identity.</p>
         </div>
         <div class="profile-card reveal">
             <div class="profile-num">05</div>
-            <div class="profile-icon-wrap">🌐</div>
+            <div class="profile-icon-wrap"><svg class="profile-line-icon" viewBox="0 0 48 48" aria-hidden="true">
+        <circle cx="24" cy="24" r="17"/>
+        <path d="M7 24h34M24 7c5 4.8 7.5 10.5 7.5 17S29 36.2 24 41M24 7c-5 4.8-7.5 10.5-7.5 17S19 36.2 24 41M10.5 15h27M10.5 33h27"/>
+    </svg></div>
             <h3>Website Management</h3>
             <p>Maintaining, updating, and optimising websites for performance, design consistency, and seamless user experience across all devices.</p>
         </div>
         <div class="profile-card reveal">
             <div class="profile-num">06</div>
-            <div class="profile-icon-wrap">📊</div>
+            <div class="profile-icon-wrap"><svg class="profile-line-icon" viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M8 40V8M8 40h32"/>
+        <rect x="14" y="27" width="6" height="9" rx="1"/>
+        <rect x="23" y="20" width="6" height="16" rx="1"/>
+        <rect x="32" y="12" width="6" height="24" rx="1"/>
+    </svg></div>
             <h3>Digital Marketing</h3>
             <p>Planning and executing result-driven digital campaigns — from SEO and paid ads to content marketing — that build brand awareness and drive growth.</p>
         </div>
         <div class="profile-card reveal">
             <div class="profile-num">07</div>
-            <div class="profile-icon-wrap">📸</div>
+            <div class="profile-icon-wrap"><svg class="profile-line-icon" viewBox="0 0 48 48" aria-hidden="true">
+        <path d="M8 16h8l3-5h10l3 5h8v22H8V16Z"/>
+        <circle cx="24" cy="27" r="7"/>
+        <circle cx="24" cy="27" r="3"/>
+        <path d="M34 20h.01"/>
+    </svg></div>
             <h3>Photography</h3>
             <p>Capturing compelling images with a sharp eye for composition, lighting, and storytelling — from product shoots to portraits and events.</p>
         </div>
         <div class="profile-card reveal">
             <div class="profile-num">08</div>
-            <div class="profile-icon-wrap">🎥</div>
+            <div class="profile-icon-wrap"><svg class="profile-line-icon" viewBox="0 0 48 48" aria-hidden="true">
+        <rect x="6" y="13" width="27" height="22" rx="3"/>
+        <path d="m33 20 9-5v18l-9-5"/>
+        <circle cx="14" cy="20" r="1.5"/><circle cx="19" cy="20" r="1.5"/>
+    </svg></div>
             <h3>Videography</h3>
             <p>Shooting cinematic footage for brand films, event coverage, reels, and promotional content that tells powerful visual stories.</p>
         </div>
@@ -1580,12 +1628,6 @@ nav > a {
         </div>
 
     </div><!-- /filmstrip-end -->
-
-                   <div>
-       <p class="section-label">cuts</p>
-            <h2 class="section-title reveal">Video Editing</h2>
-
-</div>
 
 <!-- CONTACT QUESTIONNAIRE -->
 <section class="contact-section" id="contact">
